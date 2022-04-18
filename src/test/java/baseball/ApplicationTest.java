@@ -1,5 +1,6 @@
 package baseball;
 
+import baseball.exception.CanNotInputHangleException;
 import camp.nextstep.edu.missionutils.test.NsTest;
 import org.junit.jupiter.api.Test;
 
@@ -27,6 +28,31 @@ class ApplicationTest extends NsTest {
                         .isInstanceOf(IllegalArgumentException.class)
         );
     }
+
+    @Test
+    void 예외_띄어쓰기_테스트() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("12 3"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 한글_입력_테스트() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("한글글"))
+                        .isInstanceOf(CanNotInputHangleException.class)
+        );
+    }
+
+    @Test
+    void 숫자_한글_입력_테스트() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("1한글"))
+                        .isInstanceOf(CanNotInputHangleException.class)
+        );
+    }
+
 
     @Override
     public void runMain() {
